@@ -10,12 +10,11 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: CopyFiles@2
-  displayName: Copy Files
+- task: ExtractFiles@1
   inputs:
-    SourceFolder: $(system.defaultworkingdirectory)/target/azure-functions/
-    Contents: '**'
-    TargetFolder: $(build.artifactstagingdirectory)
+    archiveFilePatterns: '*.zip'
+    destinationFolder: '$(Build.SourcesDirectory)'
+    cleanDestinationFolder: false
 - task: Maven@3
   inputs:
     mavenPomFile: 'app/pom.xml'
